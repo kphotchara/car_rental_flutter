@@ -217,7 +217,16 @@ class CarDetailPage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AboutChip(text: '5 Seater',icon: Icons.people,),
+                        AboutChip(text: 'Great',icon: Icons.check_circle,),
+                        const SizedBox(height: 8.0),
+                        AboutChip(text: 'Manual',icon: Icons.settings,),
+                      ],
+                    
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AboutChip(text: '2021',icon: Icons.calendar_today,),
                         const SizedBox(height: 8.0),
                         AboutChip(text: 'Petrol',icon: Icons.local_gas_station,),
                       ],
@@ -226,18 +235,9 @@ class CarDetailPage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AboutChip(text: '5 Seater',icon: Icons.people,),
+                        AboutChip(text: '3500'+"Km",icon: Icons.speed,),
                         const SizedBox(height: 8.0),
-                        AboutChip(text: 'Petrol',icon: Icons.local_gas_station,),
-                      ],
-                    
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AboutChip(text: '5 Seater',icon: Icons.people,),
-                        const SizedBox(height: 8.0),
-                        AboutChip(text: 'Petrol',icon: Icons.local_gas_station,),
+                        AboutChip(text: '5 Seats',icon: Icons.people,),
                       ],
                     
                     ),
@@ -445,7 +445,7 @@ class AboutChip extends StatelessWidget {
         padding: const EdgeInsets.only(top: 2,bottom: 2,left: 8,right: 8),
         child: Row(
           children: [
-            Icon(icon, color: Color.fromRGBO(0, 125, 252, 1),size: 25,),
+            Icon(icon, color: Color.fromRGBO(0, 125, 252, 1),size: 20,),
             SizedBox(width: 6,),
             Text(
               text,
