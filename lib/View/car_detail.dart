@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'curved_edges_widget.dart';
-
+import 'package:car_rental_flutter/Components/detail_chip.dart';
 class CarDetailPage extends StatelessWidget {
   const CarDetailPage({super.key});
 
@@ -286,27 +286,27 @@ class DetaiPage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AboutChip(text: 'Great',icon: Icons.check_circle,),
+                      DetailChip(text: 'Great',icon: Icons.check_circle,),
                       const SizedBox(height: 8.0),
-                      AboutChip(text: 'Manual',icon: Icons.settings,),
+                      DetailChip(text: 'Manual',icon: Icons.settings,),
                     ],
                   
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AboutChip(text: '2021',icon: Icons.calendar_today,),
+                      DetailChip(text: '2021',icon: Icons.calendar_today,),
                       const SizedBox(height: 8.0),
-                      AboutChip(text: 'Petrol',icon: Icons.local_gas_station,),
+                      DetailChip(text: 'Petrol',icon: Icons.local_gas_station,),
                     ],
                   
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AboutChip(text: '3500'+"Km",icon: Icons.speed,),
+                      DetailChip(text: '3500'+"Km",icon: Icons.speed,),
                       const SizedBox(height: 8.0),
-                      AboutChip(text: '5 Seats',icon: Icons.people,),
+                      DetailChip(text: '5 Seats',icon: Icons.people,),
                     ],
                   
                   ),
@@ -445,43 +445,3 @@ class ReviewRow extends StatelessWidget {
   }
 }
 
-class AboutChip extends StatelessWidget {
-  
-  const AboutChip({
-    super.key,
-    required this.text,
-    required this.icon,
-  });
-
-  final String text;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 30,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: const Color.fromRGBO(246, 246, 246, 1),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 2,bottom: 2,left: 8,right: 8),
-        child: Row(
-          children: [
-            Icon(icon, color: Color.fromRGBO(0, 125, 252, 1),size: 20,),
-            SizedBox(width: 6,),
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 14.0,
-                color: Color.fromRGBO(121, 121, 121, 1),
-                fontWeight: FontWeight.bold,
-              ),
-              
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
