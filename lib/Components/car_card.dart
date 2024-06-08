@@ -57,7 +57,12 @@ class _CarCardState extends State<CarCard> {
             ),
             child: Stack(children: [
               
-              Container(child: Image.network(widget.image, width: 300, height: 120, fit: BoxFit.contain,)),
+              Container(
+                child: Image.network(
+                  widget.image,
+                  width: 300,
+                  height: 120,
+                  fit: BoxFit.cover,)),
               Container(
                 width: 300,
                 height: 40,
