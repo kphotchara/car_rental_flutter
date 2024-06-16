@@ -1,3 +1,4 @@
+import 'package:car_rental_flutter/ViewModel/getImageUrl.dart';
 import 'package:flutter/material.dart';
 import 'detail_chip.dart';
 
@@ -25,6 +26,7 @@ class CarCard extends StatefulWidget {
 }
 
 class _CarCardState extends State<CarCard> {
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -93,10 +95,10 @@ class _CarCardState extends State<CarCard> {
                       borderRadius: BorderRadius.circular(10),
                       color: const Color.fromRGBO(246, 246, 246, 1),
                     ),
-                    child: const Padding(
-                      padding: const EdgeInsets.only(top: 2,bottom: 2,left: 8,right: 8),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 2,bottom: 2,left: 8,right: 8),
                       child: Text(
-                            'SUV',
+                            widget.className,
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.blue,
@@ -105,16 +107,17 @@ class _CarCardState extends State<CarCard> {
                       ),
                     ),
                   ),
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.star, color: Colors.orange,size: 25,),
                       Text(
-                        '4.7',
+                        '\$${widget.price}',
                         style: TextStyle(
-                          fontSize: 14.0,
+                          color: Color.fromRGBO(0, 125, 252, 1),
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Text("/hr")
                     ],
                   ),
                 ],
@@ -142,7 +145,7 @@ class _CarCardState extends State<CarCard> {
                 children: [
                   DetailChip(text: widget.transmissionType, icon: Icons.settings),
                   DetailChip(text: widget.fuelType, icon: Icons.local_gas_station),
-                  DetailChip(text: widget.seat.toString() + "seats", icon: Icons.people),
+                  DetailChip(text: widget.seat.toString() + " seats", icon: Icons.people),
               ],)
 
         ],),
