@@ -199,38 +199,50 @@ class _BookPageState extends State<BookPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(
-                      style: ButtonStyle(
-                      fixedSize: WidgetStateProperty.all(Size(160, 50)),
-                      foregroundColor: WidgetStateProperty.all(rentType==1 ? Color.fromRGBO(0, 125, 252, 1) : Color.fromRGBO(246, 246, 246, 1)),
-                      backgroundColor: WidgetStateProperty.all(rentType==0 ? Color.fromRGBO(0, 125, 252, 1) : Color.fromRGBO(246, 246, 246, 1)),
-                      shape: WidgetStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      )),
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        child: TextButton(
+                          
+                          style: ButtonStyle(
+                          //fixedSize: WidgetStateProperty.all(Size(160, 50)),
+                          foregroundColor: WidgetStateProperty.all(rentType==1 ? Color.fromRGBO(0, 125, 252, 1) : Color.fromRGBO(246, 246, 246, 1)),
+                          backgroundColor: WidgetStateProperty.all(rentType==0 ? Color.fromRGBO(0, 125, 252, 1) : Color.fromRGBO(246, 246, 246, 1)),
+                          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          )),
+                        ),
+                          onPressed: (){
+                            setState (() {
+                              rentType = 0;
+                              //print(rentType);
+                            });
+                          }, 
+                          child: Text("Self-Drive",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),),
+                      ),
                     ),
-                      onPressed: (){
-                        setState (() {
-                          rentType = 0;
-                          //print(rentType);
-                        });
-                      }, 
-                      child: Text("Self-Drive",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),),
-                      TextButton(
-                      style: ButtonStyle(
-                      fixedSize: WidgetStateProperty.all(Size(160, 50)),
-                      foregroundColor: WidgetStateProperty.all(rentType==0 ? Color.fromRGBO(0, 125, 252, 1) : Color.fromRGBO(246, 246, 246, 1)),
-                      backgroundColor: WidgetStateProperty.all(rentType==1 ? Color.fromRGBO(0, 125, 252, 1) : Color.fromRGBO(246, 246, 246, 1)),
-                      shape: WidgetStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      )),
-                    ),
-                      onPressed: (){
-                        setState (() {
-                          rentType = 1;
-                          //print(rentType);
-                        });
-                      }, 
-                      child: Text("With Driver",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),)
+                  SizedBox(width: 16,),
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          child: TextButton(
+                          style: ButtonStyle(
+                          //fixedSize: WidgetStateProperty.all(Size(160, 50)),
+                          foregroundColor: WidgetStateProperty.all(rentType==0 ? Color.fromRGBO(0, 125, 252, 1) : Color.fromRGBO(246, 246, 246, 1)),
+                          backgroundColor: WidgetStateProperty.all(rentType==1 ? Color.fromRGBO(0, 125, 252, 1) : Color.fromRGBO(246, 246, 246, 1)),
+                          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          )),
+                                              ),
+                          onPressed: (){
+                            setState (() {
+                              rentType = 1;
+                              //print(rentType);
+                            });
+                          }, 
+                          child: Text("With Driver",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),),
+                        ),
+                      )
                 ],),
 
                 const SizedBox(height: 16.0),
@@ -307,115 +319,119 @@ class _BookPageState extends State<BookPage> {
     return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      showDatePicker(
-                        builder: (context, child) {
-                          return Theme(
-                            data: ThemeData.light().copyWith(
-                              colorScheme: const ColorScheme.light(
-                                primary: Color.fromRGBO(0, 125, 252, 1),
-                                outlineVariant: Color.fromRGBO(0, 125, 252, 1),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        showDatePicker(
+                          builder: (context, child) {
+                            return Theme(
+                              data: ThemeData.light().copyWith(
+                                colorScheme: const ColorScheme.light(
+                                  primary: Color.fromRGBO(0, 125, 252, 1),
+                                  outlineVariant: Color.fromRGBO(0, 125, 252, 1),
+                                ),
                               ),
-                            ),
-                            child: child!,
-                          );
-                        },
-                        context: context, 
-                        firstDate: DateTime.now(), 
-                        lastDate: DateTime(DateTime.now().year+1)).then((onValue){
-                        setState(() {
-                          if (onValue != null){
-                            if (isPickUp){
-                              selectedPickUpDate = onValue;
-                              //print(selectedPickUpDate);
+                              child: child!,
+                            );
+                          },
+                          context: context, 
+                          firstDate: isPickUp?DateTime.now():selectedPickUpDate, 
+                          lastDate: DateTime(DateTime.now().year+1)).then((onValue){
+                          setState(() {
+                            if (onValue != null){
+                              if (isPickUp){
+                                selectedPickUpDate = DateTime(onValue.year, onValue.month, onValue.day, selectedPickUpDate.hour, selectedPickUpDate.minute);
+                                //print(selectedPickUpDate);
+                              }
+                              else{
+                                selectedPickUpDate = DateTime(onValue.year, onValue.month, onValue.day, selectedPickUpDate.hour, selectedPickUpDate.minute);
+                              }
                             }
-                            else{
-                              selectedDropOffDate = onValue;
-                            }
-                          }
+                          });
                         });
-                      });
-                    },
-                    child: Container(
-                      width: 170,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Color.fromRGBO(246, 246, 246, 1),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Date",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Color.fromRGBO(121, 121, 121, 1)),),
-                                Text(DateFormat('EEE, dd MMM').format(isPickUp?selectedPickUpDate:selectedDropOffDate),style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                              ],
-                            ),
-                            Icon(Icons.calendar_month,color: Color.fromRGBO(0, 125, 252, 1),size: 25,)
-                          ],
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Color.fromRGBO(246, 246, 246, 1),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20,right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Date",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Color.fromRGBO(121, 121, 121, 1)),),
+                                  Text(DateFormat('EEE, dd MMM').format(isPickUp?selectedPickUpDate:selectedDropOffDate),style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                                ],
+                              ),
+                              Icon(Icons.calendar_month,color: Color.fromRGBO(0, 125, 252, 1),size: 25,)
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      showTimePicker(
-                        builder: (context, child) {
-                          return MediaQuery(
-                            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-                            child: Theme(
-                            data: ThemeData.light().copyWith(
-                              colorScheme: const ColorScheme.light(
-                                primary: Color.fromRGBO(0, 125, 252, 1),
-                                secondary: Color.fromRGBO(0, 125, 252, 1),
+                  SizedBox(width: 16,),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        showTimePicker(
+                          builder: (context, child) {
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+                              child: Theme(
+                              data: ThemeData.light().copyWith(
+                                colorScheme: const ColorScheme.light(
+                                  primary: Color.fromRGBO(0, 125, 252, 1),
+                                  secondary: Color.fromRGBO(0, 125, 252, 1),
+                                ),
                               ),
+                              child: child!,
                             ),
-                            child: child!,
-                          ),
-                          );
-                        },
-                        context: context, 
-                        initialTime: TimeOfDay.now()).then((onValue){
-                        setState(() {
-                          if (onValue != null){
-                            if (isPickUp){
-                              selectedPickUpDate = DateTime(selectedPickUpDate.year, selectedPickUpDate.month, selectedPickUpDate.day, onValue.hour, onValue.minute);
+                            );
+                          },
+                          context: context, 
+                          initialTime: TimeOfDay.now()).then((onValue){
+                          setState(() {
+                            if (onValue != null){
+                              if (isPickUp){
+                                selectedPickUpDate = DateTime(selectedPickUpDate.year, selectedPickUpDate.month, selectedPickUpDate.day, onValue.hour, onValue.minute);
+                              }
+                              else{
+                                selectedDropOffDate = DateTime(selectedDropOffDate.year, selectedDropOffDate.month, selectedDropOffDate.day, onValue.hour, onValue.minute);
+                              }
                             }
-                            else{
-                              selectedDropOffDate = DateTime(selectedDropOffDate.year, selectedDropOffDate.month, selectedDropOffDate.day, onValue.hour, onValue.minute);
-                            }
-                          }
+                          });
                         });
-                      });
-                    },
-                    child: Container(
-                      width: 170,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Color.fromRGBO(246, 246, 246, 1),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Time",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Color.fromRGBO(121, 121, 121, 1)),),
-                                Text(DateFormat('hh:mm a').format(isPickUp?selectedPickUpDate:selectedDropOffDate),style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                              ],
-                            ),
-                            Icon(Icons.schedule,color: Color.fromRGBO(0, 125, 252, 1),size: 25,)
-                          ],
+                      },
+                      child: Container(
+                        
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Color.fromRGBO(246, 246, 246, 1),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20,right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Time",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Color.fromRGBO(121, 121, 121, 1)),),
+                                  Text(DateFormat('hh:mm a').format(isPickUp?selectedPickUpDate:selectedDropOffDate),style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                                ],
+                              ),
+                              Icon(Icons.schedule,color: Color.fromRGBO(0, 125, 252, 1),size: 25,)
+                            ],
+                          ),
                         ),
                       ),
                     ),
